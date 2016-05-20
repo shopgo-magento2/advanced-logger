@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 ShopGo. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="ShopGo\AdvancedLogger\Model\Logger\Handler\Base">
+        <arguments>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+        </arguments>
+    </type>
+    <virtualType name="ShopGo\AdvancedLogger\Model\Logger\Handler\System" type="ShopGo\AdvancedLogger\Model\Logger\Handler\Base">
+        <arguments>
+            <argument name="fileName" xsi:type="string">system.log</argument>
+            <argument name="loggerType" xsi:type="string">info</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="ShopGo\AdvancedLogger\Model\Logger\Handler\Debug" type="ShopGo\AdvancedLogger\Model\Logger\Handler\Base">
+        <arguments>
+            <argument name="fileName" xsi:type="string">debug.log</argument>
+            <argument name="loggerType" xsi:type="string">debug</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="ShopGo\AdvancedLogger\Model\Logger\Handler\Exception" type="ShopGo\AdvancedLogger\Model\Logger\Handler\Base">
+        <arguments>
+            <argument name="fileName" xsi:type="string">exception.log</argument>
+            <argument name="loggerType" xsi:type="string">info</argument>
+        </arguments>
+    </virtualType>
+    <type name="ShopGo\AdvancedLogger\Model\Logger\Monolog">
+        <arguments>
+            <argument name="name" xsi:type="string">advanced-logger</argument>
+            <argument name="handlers" xsi:type="array">
+                <item name="system" xsi:type="object">ShopGo\AdvancedLogger\Model\Logger\Handler\System</item>
+                <item name="debug" xsi:type="object">ShopGo\AdvancedLogger\Model\Logger\Handler\Debug</item>
+                <item name="exception" xsi:type="object">ShopGo\AdvancedLogger\Model\Logger\Handler\Exception</item>
+            </argument>
+        </arguments>
+    </type>
+</config>
+
